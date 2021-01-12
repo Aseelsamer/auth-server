@@ -2,6 +2,7 @@
 const express = require('express');
 const users = require('./models/user-model')
 const router = express.Router();
+const oauth = require('../auth/middleware/oauth');
 const authenticateBasic = require('../auth/middleware/basic')
 
 //routes
@@ -29,8 +30,13 @@ router.get('/users',authenticateBasic,(req,res)=>{
     })
 })
 
+
 // router.get('/secret', bearerMiddleware, (req,res) => {
 
 // } );
+router.get('/oauth',oauth,(req,res)=>{
+res.status(200).send(req.token);
+})
+
 
 module.exports =router;
