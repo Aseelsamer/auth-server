@@ -6,10 +6,12 @@ const authenticateBasic = require('../auth/middleware/basic')
 
 //routes
 router.post('/signup',(req,res)=>{
-    users.save(req.body.username)
+    console.log(req.body);
+    users.save(req.body)
     .then(user=>{
+        console.log(user);
         users.generateToken(user).then(result=> {
-            // console.log(result);
+            console.log(result);
             res.status(200).send(result);
         });
     }).catch(e=> res.status(403).send("creating user error!"));
@@ -26,5 +28,9 @@ router.get('/users',authenticateBasic,(req,res)=>{
         res.json({result})
     })
 })
+
+// router.get('/secret', bearerMiddleware, (req,res) => {
+
+// } );
 
 module.exports =router;
