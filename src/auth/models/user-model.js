@@ -14,17 +14,25 @@ class Users extends Model {
         super(schema);
     }
 
-//save method 
-    async save(record) {
+// save method 
+async save(record) {
+        console.log('***************************',record);
     //username & password
     let result = await this.get({username:record.username})
-    if (!result[record.username]) {
-       return this.create(record)//the save should return the record
+    console.log(result);
+    if (result.length === 0) {
+        record.password = await bcrypt.hash(record.password,5);
+        console.log(record);
+        let x =await  this.create(record)
+        console.log('------------------------',x);
+       return x;//the save should return the record
     }
 
     return Promise.reject();
 
 }
+
+
 
 async authenticateBasic(user, pass) {
    let result = await this.get({username:user});
@@ -38,6 +46,10 @@ async authenticateBasic(user, pass) {
 async generateToken(user) {
     let token = await jwt.sign({username: user.username}, SECRET);
     return token;
+}
+
+async bearerMiddleware(){
+    
 }
 
 }
