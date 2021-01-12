@@ -30,6 +30,11 @@ router.get('/users',authenticateBasic,(req,res)=>{
     })
 })
 
+router.get('/secret', bearerMiddleware, (req,res) => {
+    res.status(200).json(req.user);
+} );
+
+
 
 // router.get('/secret', bearerMiddleware, (req,res) => {
 

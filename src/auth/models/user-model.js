@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 let SECRET = 'hello';
 const schema = require('./schema');
 const Model = require('../mongo');
+const { token } = require('morgan');
 
 
 class Users extends Model {
@@ -35,10 +36,11 @@ async save(record) {
 
 
 async authenticateBasic(user, pass) {
-   let result = await this.get({username:user});
+   let result = await this.get({user});
+   console.log('authentication',result);
     if (result) {
-        // compare the password text with the encrypted password 
-        return await bcrypt.compare(pass, result[0].password);
+        console.log('result',result)
+        return await bcrypt.compare(pass, result.password);
     }
     return Promise.reject();
 }
@@ -48,8 +50,19 @@ async generateToken(user) {
     return token;
 }
 
+
+async acceptToken(){
+try{
+    let tokenObject = await jwt.verify(token,SECRET);
+    console.log('tokenObject',tokenObject);
+    return tokenObject.username ? Promise.resolve(tokenObject): Promise.reject();
+}catch (err){
+    return Promise.reject();
+}
+
 async bearerMiddleware(){
     
+
 }
 
 }

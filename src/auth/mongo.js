@@ -11,6 +11,11 @@ class Model {
     return await this.schema.find(queryObject);
   }
 
+ async create(record) {
+
+    let newRecord = new this.schema(record);
+    return await newRecord.save();
+
   async create(record) {
 console.log('inside create',record);
     let newRecord = new this.schema(record);
@@ -18,6 +23,7 @@ console.log('inside create',record);
     let y = await newRecord.save();
     console.log('y',y);
     return y ;
+
   }
 
   async update(_id, record) {
