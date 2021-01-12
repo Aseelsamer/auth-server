@@ -6,23 +6,23 @@ class Model {
     this.schema = schema;
   }
 
-  get(name) {
+  async get(name) {
     let queryObject = name ? name : {};
-    return this.schema.find(queryObject);
+    return await this.schema.find(queryObject);
   }
 
-  create(record) {
+ async create(record) {
 
     let newRecord = new this.schema(record);
-    return newRecord.save();
+    return await newRecord.save();
   }
 
-  update(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, {new: true});
+  async update(_id, record) {
+    return await this.schema.findByIdAndUpdate(_id, record, {new: true});
   }
 
-  delete(_id) {
-    return this.schema.findByIdAndDelete(_id);
+  async delete(_id) {
+    return await this.schema.findByIdAndDelete(_id);
   }
 
 }
