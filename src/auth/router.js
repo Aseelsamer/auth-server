@@ -30,18 +30,13 @@ router.get('/users',authenticateBasic,(req,res)=>{
     })
 })
 
-router.get('/secret', bearerMiddleware, (req,res) => {
-    res.status(200).json(req.user);
-} );
-
-
-
-// router.get('/secret', bearerMiddleware, (req,res) => {
-
-// } );
 router.get('/oauth',oauth,(req,res)=>{
 res.status(200).send(req.token);
 })
+
+router.get('/secret', bearerMiddleware, (req,res) => {
+    res.status(200).json(req.user);
+} );
 
 
 module.exports =router;

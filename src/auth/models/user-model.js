@@ -6,7 +6,12 @@ const jwt = require('jsonwebtoken');
 let SECRET = 'hello';
 const schema = require('./schema');
 const Model = require('../mongo');
-const { token } = require('morgan');
+
+let roles = {
+    user: ['read'],
+    editor: ['read', 'create', 'add'],
+    admin: ['read', 'create', 'add', 'delete']
+};
 
 
 class Users extends Model {
@@ -20,10 +25,10 @@ async save(record) {
         console.log('***************************',record);
     //username & password
     let result = await this.get({username:record.username})
-    console.log(result);
+    console.log('result',result);
     if (result.length === 0) {
         record.password = await bcrypt.hash(record.password,5);
-        console.log(record);
+        console.log('record',record);
         let x =await  this.create(record)
         console.log('------------------------',x);
        return x;//the save should return the record
@@ -32,8 +37,6 @@ async save(record) {
     return Promise.reject();
 
 }
-
-
 
 async authenticateBasic(user, pass) {
    let result = await this.get({user});
@@ -46,12 +49,14 @@ async authenticateBasic(user, pass) {
 }
 
 async generateToken(user) {
-    let token = await jwt.sign({username: user.username}, SECRET);
+    let token = jwt.sign({
+        username: user.username,
+        capabilities: roles[user.role]
+    }, SECRET);
     return token;
 }
 
-
-async acceptToken(){
+async acceptToken(token){
 try{
     let tokenObject = await jwt.verify(token,SECRET);
     console.log('tokenObject',tokenObject);
@@ -60,11 +65,17 @@ try{
     return Promise.reject();
 }
 
-async bearerMiddleware(){
-    
-
 }
 
+//can(permission)
+
+can(permission){
+    if(permission){
+        return true;
+    }else{
+        return false;
+    }
+}
 }
 
 module.exports = new Users;
