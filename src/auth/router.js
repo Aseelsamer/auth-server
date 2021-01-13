@@ -26,7 +26,6 @@ router.get('/users',authenticateBasic,(req,res)=>{
         res.json({result})
     })
 })
-router.get('/secret', bearerMiddleware, (req,res) => {
-    res.status(200).json(req.user);
-} );
+
+
 module.exports =router;

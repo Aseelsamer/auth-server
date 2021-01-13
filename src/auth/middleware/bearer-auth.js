@@ -2,8 +2,6 @@
 let users = require('../models/user-model');
 
 module.exports = (req, res, next) => {
-    // I expect to recieve in the req headers
-    // Authorization should be Bearer a$sdadtoejen3ADSD32AsQsf
     if (!req.headers.authorization) {next('not LoggedIn!'); return;}
 
     let authHeader = req.headers.authorization.split(' ');

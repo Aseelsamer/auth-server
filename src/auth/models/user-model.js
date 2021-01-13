@@ -42,7 +42,7 @@ async generateToken(user) {
     return token;
 }
 
-async acceptToken(){
+async acceptToken(token){
 try{
     let tokenObject = await jwt.verify(token,SECRET);
     console.log('tokenObject',tokenObject);
