@@ -1,5 +1,6 @@
 'use strict';
 
+
 let users = require('../models/user-model');
 
 module.exports = (req, res, next) => {
@@ -17,12 +18,6 @@ module.exports = (req, res, next) => {
 
 }
 
-const express = require('express');
-const users = require('./models/user-model')
-const router = express.Router();
-const authenticateBasic = require('../auth/middleware/basic')
 
-router.get('/',(req,res)=>{
-    
-})
+
 
