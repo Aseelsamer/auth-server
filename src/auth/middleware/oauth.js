@@ -4,9 +4,9 @@ const superagent = require('superagent');
 const users = require('../models/user-model');
 const tokenUrl = 'https://github.com/login/oauth/access_token';
 const userUrl = 'https://api.github.com/user';
-const CLIENT_ID = 'f99a65b65bbe9b58dd3f';
-const SECRET_ID = '90fdd7b7bb485c361b032824bd1d0d924f42f869';
-const API_SERVER = 'http://localhost:4000/oauth';
+const CLIENT_ID = process.env.CLIENT_ID;
+const SECRET_ID = process.env.SECRET_ID;
+const API_SERVER =process.env.API_SERVER;
 
 
 
