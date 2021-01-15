@@ -6,7 +6,7 @@ const tokenUrl = 'https://github.com/login/oauth/access_token';
 const userUrl = 'https://api.github.com/user';
 const CLIENT_ID = process.env.CLIENT_ID;
 const SECRET_ID = process.env.SECRET_ID;
-const API_SERVER =process.env.API_SERVER;
+const API_SERVER='http://localhost:4000/oauth';
 
 
 
