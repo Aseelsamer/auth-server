@@ -2,7 +2,7 @@
 
 const base64 = require('base-64');
 const users = require('../models/user-model');
-const authenticateBasic = require('../auth/middleware/basic')
+
 
 module.exports = (req, res, next)=> {
     console.log('req.headers',req.headers);

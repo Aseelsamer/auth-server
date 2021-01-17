@@ -4,6 +4,10 @@ const bearerMiddleware= require('./auth/middleware/bearer-auth')
 const router = require('./auth/router');
 const permissions =require('./auth/middleware/authorize');
 
+router.get('/secret', bearerMiddleware, (req,res) => {
+    res.status(200).json(req.user);
+} );
+
 app.get('/read', bearerMiddleware, permissions('read'), (req,res)=>{
     res.status(200).send('you can access it always')
 })
